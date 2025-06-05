@@ -103,3 +103,37 @@ print(f"{price:+020,.2f}")
 # 20 → total width
 # , → thousands separator
 # .2f → round to 2 decimals
+
+# -------------------------------
+# print() FUNCTION IN DETAIL
+# -------------------------------
+
+# The print() function outputs text to the console.
+# Syntax: print(*objects, sep=' ', end='\n', file=sys.stdout, flush=False)
+
+# 🔸 sep (separator) – controls what goes between multiple values
+print("Kedar", "Damale", sep="🚀")  # Output: Kedar🚀Damale
+
+# 🔸 end – what to print at the end instead of default newline
+print("This is printed...", end=" 😎 ")
+print("on the same line because end was custom.")
+
+# 🔸 flush – forces the output to be flushed to screen (usually used for buffering control)
+# Used rarely unless you're doing real-time output display
+print("This is immediate", flush=True)
+
+print("\n" + "-" * 50)
+
+
+# Example: Fancy progress bar simulation
+import time
+
+i = 0
+while i <= 10:
+    print(f"\rLoading {i * 10}%", end="")  # \r brings cursor to start of line; end="" avoids newline
+    time.sleep(0.2)
+    i += 1
+
+print("\n✅ Loading Complete!")
+
+
