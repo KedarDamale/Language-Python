@@ -1,3 +1,5 @@
+#Memory management is python:https://chatgpt.com/c/68411af3-17e0-800a-906f-019174e0c941
+# 
 # -----------------------------------
 # VARIABLES IN PYTHON (Detailed View)
 # -----------------------------------
@@ -17,6 +19,7 @@
 name = "Kedar"  # This is a string — sequence of characters surrounded by quotes (single or double).
 print(name)  # Output: Kedar
 print("Kedar")  # Also prints Kedar, but directly as a string literal
+print("Kedar " * 3)   # Output: Kedar Kedar Kedar #This is called string multiplication in python
 
 # f-string (formatted string literal)
 print(f"Hello {name}!")  
