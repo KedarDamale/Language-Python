@@ -98,3 +98,120 @@ f.print_name()  # Output: name (also from Animal, via Predator)
 # -------------------------------
 # END OF PROGRAM
 # -------------------------------
+
+
+# MRO (Method Resolution Order) is the order in which Python looks for methods/attributes when you call them on an object, especially when multiple classes are involved.
+
+# In single inheritance, it’s simple:
+# Child ➜ Parent ➜ object
+# In multiple inheritance, Python uses the C3 Linearization algorithm to compute a consistent and logical method lookup path.
+
+# ====================================================
+# 🧠 MRO (Method Resolution Order) — Detailed Example
+# ====================================================
+
+# Let's define a hierarchy with multiple inheritance
+
+class A:
+    def show(self):
+        print("🔴 Class A")
+
+class B(A):
+    def show(self):
+        print("🟢 Class B")
+
+class C(A):
+    def show(self):
+        print("🔵 Class C")
+
+# D inherits from both B and C
+class D(B, C):
+    pass
+
+
+# Let's create an object of class D
+obj = D()
+
+# Now, call show()
+obj.show()  # Which show() gets called?
+
+# Let's explicitly check the MRO
+print("\n📜 MRO of class D:")
+for cls in D.__mro__:
+    print(cls)
+
+
+# 📜 MRO of class D:
+# <class '__main__.D'>
+# <class '__main__.B'>
+# <class '__main__.C'>
+# <class '__main__.A'>
+# <class 'object'>
+
+''''
+✅ Step-by-step Explanation:
+obj.show() is called.
+
+Python first checks D for show() → ❌ Not found.
+
+Then goes to B → ✅ Found → prints Class B.
+
+MRO stops there. C and A are never checked for show().
+
+🔁 How is the MRO calculated?
+Python uses the C3 Linearization algorithm:
+
+It merges the MROs of all parent classes left to right, skipping duplicates but maintaining consistency.
+
+MRO of D(B, C):
+
+css
+Copy
+Edit
+D → B → C → A → object
+🔎 You can also inspect MRO with:
+python
+Copy
+Edit
+print(D.mro())
+Or using:
+
+python
+Copy
+Edit
+help(D)
+It’ll show the exact MRO as determined by Python.
+
+✅ Additional MRO Use Case — When methods are not overridden
+python
+Copy
+Edit
+class A:
+    def greet(self):
+        print("Hello from A")
+
+class B(A):
+    pass
+
+class C(A):
+    def greet(self):
+        print("Hello from C")
+
+class D(B, C):
+    pass
+
+d = D()
+d.greet()  # Output: Hello from C
+
+# Because D → B → C → A → object
+# B has no greet, so it goes to C first
+🔥 Important Points to Remember
+Point	Explanation
+MRO	Defines how Python resolves method calls when multiple inheritance is involved
+Rule	Python uses C3 Linearization to compute MRO
+Tool	Class.__mro__ or Class.mro() can be used to inspect MRO
+Order	Left-to-right, depth-first, but also ensures consistency
+Python's Base	Everything eventually inherits from object
+
+
+'''
